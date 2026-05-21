@@ -1,0 +1,9 @@
+Whenever you make changes:
+Add files
+git add .
+
+Commit changes
+git commit -m "updated test scripts"
+
+Push to GitHub
+git push
