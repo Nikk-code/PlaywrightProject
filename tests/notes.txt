@@ -1,0 +1,22 @@
+//If Id is present
+CSS ---> tagname#id (or) #id
+
+//If class attribute is present
+css ---> tagname.class (or) .class
+
+//Write css based on any Attribute
+css ----> tagname[attribute='value']
+
+//Write Css with traversing from Parent to child
+css ---> parenttagname childcss
+
+// If needs to write the locator based on text
+text=''
+
+
+//If we want to debug our Code use -- debug 
+npx playwright test llc.spec.js -- debug
+
+
+//It will record and playback
+npx playwright codegen
