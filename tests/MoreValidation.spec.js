@@ -24,9 +24,9 @@ test("Pop-up Validation", async ({ page }) => {
     const textCheck = await framesPage.locator(".text h2").textContent();
     console.log(textCheck.split(" ")[1]);
 
-})
+});
 
-test.only("Screensot & Visual comparision", async ({ page }) => {
+test("Screensot & Visual comparision", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     await expect(page.locator('#displayed-text')).toBeVisible();
     // It will take screenshot of locator level
@@ -36,6 +36,12 @@ test.only("Screensot & Visual comparision", async ({ page }) => {
     await page.screenshot({ path: 'Screenshot/partialScreenshot.png' });
     await expect(page.locator("#displayed-text")).toBeHidden();
 
+});
 
+// Below test will fail because it's changing so if we use google it will not 
+// visuals will check pixels by pixels 
+test.only("visual", async ({ page }) => {
+    await page.goto("https://www.flightaware.com/live/");
+    expect(await page.screenshot()).toMatchSnapshot('landing.png');
 
 })
