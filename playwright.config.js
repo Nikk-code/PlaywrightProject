@@ -15,17 +15,17 @@ import { trace } from 'console';
  */
 const config = ({
   testDir: './tests',
-  timeout: 30*1000, // This is for overall test timeout if it stucks somewhere will wait till this time  // By default it's 30 sec /* Run tests in files in parallel */
-  expect :{
-      timeout: 5000,   //it will wait till max 5 seconds 
+  timeout: 30 * 1000, // This is for overall test timeout if it stucks somewhere will wait till this time  // By default it's 30 sec /* Run tests in files in parallel */
+  expect: {
+    timeout: 5000,   //it will wait till max 5 seconds 
   },
-  reporter :'html',
+  reporter: 'html',
   use: {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 
-    browserName : 'chromium',
-    headless : false,
+    browserName: 'chromium',
+    headless: true,
     screenshot: 'on',
     trace: 'on'
 
