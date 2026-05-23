@@ -7,17 +7,20 @@
 const { test, expect } = require('@playwright/test');
 const { title, execPath } = require('process');
 const { text } = require('stream/consumers');
-
+const { LoginPage } = require('../pageobjects/LoginPage');
 
 test('Client App Login', async ({ page }) => {
     //js file-Login.js, DashboardPage
-    const email = "johndoe123477@gmail.com"
+    const username = "johndoe123477@gmail.com";
+    const password = "John@1234";
     const productName = 'ZARA COAT 3';
     const products = page.locator(".card-body");
-    await page.goto("https://rahulshettyacademy.com/client");
-    await page.locator("#userEmail").fill(email);
-    await page.locator("#userPassword").fill("John@1234");
-    await page.locator("[value='Login']").click();
+
+    const loginPage = new LoginPage(page);
+    loginPage.goTo();
+    loginPage.validLogin(username, password);
+
+
 
     // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
     await page.locator(".card-body b").first().waitFor();
@@ -50,7 +53,7 @@ test('Client App Login', async ({ page }) => {
         }
     }
 
-    await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+    await expect(page.locator(".user__name [type='text']").first()).toHaveText(username);
     await page.locator(".action__submit").click();
     await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
     const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
