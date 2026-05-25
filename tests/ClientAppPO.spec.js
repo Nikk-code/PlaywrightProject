@@ -8,6 +8,9 @@ const { test, expect } = require('@playwright/test');
 const { title, execPath } = require('process');
 const { text } = require('stream/consumers');
 const { LoginPage } = require('../pageobjects/LoginPage');
+const { DashboardPage } = require('../pageobjects/DashboardPage');
+const { CartPage } = require('../pageobjects/CartPage');
+
 
 test('Client App Login', async ({ page }) => {
     //js file-Login.js, DashboardPage
@@ -17,44 +20,29 @@ test('Client App Login', async ({ page }) => {
     const products = page.locator(".card-body");
 
     const loginPage = new LoginPage(page);
-    loginPage.goTo();
-    loginPage.validLogin(username, password);
-
-
+    await loginPage.goTo();
+    await loginPage.validLogin(username, password);
+    const dashboardPage = new DashboardPage(page);
+    await dashboardPage.searchProducAddCart(productName);
+    await dashboardPage.navigateToCart();
 
     // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
-    await page.locator(".card-body b").first().waitFor();
-    const titles = await page.locator(".card-body b").allTextContents();
-    console.log(titles);
-    const count = await products.count();
-    for (let i = 0; i < count; ++i) {
+    const cartPage = new CartPage(page);
 
-        if (await products.nth(i).locator("b").textContent() === productName) {
-            // add to cart
-            await products.nth(i).locator("text= Add To Cart").click();
-            break;
-        }
-    }
-    await page.locator("[routerlink*='cart']").click();
-    await page.locator("div li").first().waitFor();
-    const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible()
+    const bool = await cartPage.verifyProductIsDisplayed(productName);
+
     expect(bool).toBeTruthy();
-    await page.locator("text=Checkout").click();
-    await page.locator("[placeholder*='Country']").pressSequentially("ind");
-    const dropdown = page.locator(".ta-results");
-    await dropdown.waitFor();
 
-    const optionsCount = await dropdown.locator("button").count();
-    for (let i = 0; i < optionsCount; ++i) {
-        const text = await dropdown.locator("button").nth(i).textContent();
-        if (text === " India") {
-            await dropdown.locator("button").nth(i).click();
-            break;
-        }
-    }
+    await cartPage.Checkout();
+
+
+
 
     await expect(page.locator(".user__name [type='text']").first()).toHaveText(username);
     await page.locator(".action__submit").click();
+
+
+
     await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
     const orderID = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
     console.log(orderID);
