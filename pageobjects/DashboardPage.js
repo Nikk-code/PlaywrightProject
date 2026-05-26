@@ -20,7 +20,9 @@ class DashboardPage {
             }
         }
     }
-
+    async navigateToOrders() {
+        await this.orders.click();
+    }
     async navigateToCart() {
 
         await this.cart.click();
