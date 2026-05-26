@@ -32,7 +32,7 @@ test('Client App Login', async ({ page }) => {
     // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
     const cartPage = poManager.getCartPage(page);
 
-    const bool = await cartPage.verifyProductIsDisplayed(productName);
+    await cartPage.VerifyProductIsDisplayed(productName);
     await cartPage.Checkout();
 
     const ordersReviewPage = poManager.getOrdersReviewPage();
