@@ -11,37 +11,37 @@ const { POManager } = require('../pageobjects/POManager');
 //Json->string-> js object
 const dataset = JSON.parse(JSON.stringify(require("./utils/placeorderTestData.json")));
 
+for (const data of dataset) {
+    test(`Client App Login for ${data.productName}`, async ({ page }) => {
+        //js file-Login.js, DashboardPage
+        const poManager = new POManager(page);
 
+        const products = page.locator(".card-body");
 
-test('Client App Login', async ({ page }) => {
-    //js file-Login.js, DashboardPage
-    const poManager = new POManager(page);
+        const loginPage = poManager.getLoginPage(page);
 
-    const products = page.locator(".card-body");
+        await loginPage.goTo();
+        await loginPage.validLogin(data.username, data.password);
 
-    const loginPage = poManager.getLoginPage(page);
+        const dashboardPage = poManager.getDashboardPage(page);
 
-    await loginPage.goTo();
-    await loginPage.validLogin(dataset.username, dataset.password);
+        await dashboardPage.searchProducAddCart(data.productName);
+        await dashboardPage.navigateToCart();
 
-    const dashboardPage = poManager.getDashboardPage(page);
+        // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
+        const cartPage = poManager.getCartPage(page);
 
-    await dashboardPage.searchProducAddCart(dataset.productName);
-    await dashboardPage.navigateToCart();
+        await cartPage.VerifyProductIsDisplayed(data.productName);
+        await cartPage.Checkout();
 
-    // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
-    const cartPage = poManager.getCartPage(page);
+        const ordersReviewPage = poManager.getOrdersReviewPage();
+        await ordersReviewPage.searchCountryAndSelect("ind", "India");
+        const orderId = await ordersReviewPage.SubmitAndGetOrderId();
+        console.log(orderId);
+        await dashboardPage.navigateToOrders();
+        const ordersHistoryPage = poManager.getOrdersHistoryPage();
+        await ordersHistoryPage.searchOrderAndSelect(orderId);
+        expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
 
-    await cartPage.VerifyProductIsDisplayed(dataset.productName);
-    await cartPage.Checkout();
-
-    const ordersReviewPage = poManager.getOrdersReviewPage();
-    await ordersReviewPage.searchCountryAndSelect("ind", "India");
-    const orderId = await ordersReviewPage.SubmitAndGetOrderId();
-    console.log(orderId);
-    await dashboardPage.navigateToOrders();
-    const ordersHistoryPage = poManager.getOrdersHistoryPage();
-    await ordersHistoryPage.searchOrderAndSelect(orderId);
-    expect(orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
-
-});
+    });
+}
