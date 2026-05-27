@@ -3,30 +3,28 @@
 //test browser --> .json, cart-,order, orderdetails,orderhistory
 
 
-const {test, expect} = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 
 
 let webContext;
-test.beforeAll(async({browser})=>
-{
+test.beforeAll(async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
-    
+
     await page.goto("https://rahulshettyacademy.com/client");
     await page.locator("#userEmail").fill("johndoe123477@gmail.com");
     await page.locator("#userPassword").fill("John@1234");
     await page.locator("[value='Login']").click();
     // await page.waitForLoadState('networkidle');  // sometimes it's flaky if it's not working we can use below step
     await page.locator(".card-body b").first().waitFor();
-    await context.storageState({path: 'state.json'});
+    await context.storageState({ path: 'state.json' });
     // Invoke Browser by passing json file
-    webContext = await browser.newContext({storageState: 'state.json'});
+    webContext = await browser.newContext({ storageState: 'state.json' });
 
 })
 
 
-test('Client App Login', async ()=>
-{
+test('Client App Login', async () => {
     const email = "johndoe123477@gmail.com";
     const productName = 'ZARA COAT 3';
     const page = await webContext.newPage();
@@ -35,10 +33,9 @@ test('Client App Login', async ()=>
     const titles = await page.locator(".card-body b").allTextContents();
     console.log(titles);
     const count = await products.count();
-    for(let i = 0; i < count; ++i){
+    for (let i = 0; i < count; ++i) {
 
-        if(await products.nth(i).locator("b").textContent() === productName)
-        {   
+        if (await products.nth(i).locator("b").textContent() === productName) {
             // add to cart
             await products.nth(i).locator("text= Add To Cart").click();
             break;
@@ -54,9 +51,9 @@ test('Client App Login', async ()=>
     await dropdown.waitFor();
 
     const optionsCount = await dropdown.locator("button").count();
-    for(let i=0; i<optionsCount; ++i){
+    for (let i = 0; i < optionsCount; ++i) {
         const text = await dropdown.locator("button").nth(i).textContent();
-        if(text === " India"){
+        if (text === " India") {
             await dropdown.locator("button").nth(i).click();
             break;
         }
@@ -71,20 +68,19 @@ test('Client App Login', async ()=>
     await page.locator("tbody").waitFor();
     const rows = await page.locator("tbody tr");
 
-    for(let i = 0; i<await rows.count(); ++i){
+    for (let i = 0; i < await rows.count(); ++i) {
         const rowOrderID = await rows.nth(i).locator("th").textContent();
-        if (orderID.includes(rowOrderID)){
+        if (orderID.includes(rowOrderID)) {
             await rows.nth(i).locator("button").first().click();
             break;
         }
     }
-const orderIdDetails = await page.locator(".col-text").textContent();
-expect(orderID.includes(orderIdDetails)).toBeTruthy();
+    const orderIdDetails = await page.locator(".col-text").textContent();
+    expect(orderID.includes(orderIdDetails)).toBeTruthy();
 
 });
 
-test('Test case 2', async ()=>
-{
+test('@API Test case 2', async () => {
     const email = "johndoe123477@gmail.com";
     const productName = 'ZARA COAT 3';
     const page = await webContext.newPage();

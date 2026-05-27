@@ -15,12 +15,11 @@
 // });
 
 // Method in which we use browser fixtures withoiut that also we can create
-const {test, expect} = require('@playwright/test');
+const { test, expect } = require('@playwright/test');
 const { text } = require('stream/consumers');
 
 
-test('Browser Context Playwrite test', async ({browser})=>
-{
+test('@Web Browser Context Playwrite test', async ({ browser }) => {
     //chrome - plugins/ cookies
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -54,9 +53,8 @@ test('Browser Context Playwrite test', async ({browser})=>
 // second example
 // Method in which we use Page fixtures without that also we can create
 
-test('UI Controls', async ({page})=>
-{
-    
+test('@Web UI Controls', async ({ page }) => {
+
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const userName = page.locator('#username');
     const signIn = page.locator('#signInBtn');
@@ -73,24 +71,23 @@ test('UI Controls', async ({page})=>
     await expect(page.locator("#terms")).toBeChecked();
     await page.locator("#terms").uncheck();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
-    await expect(documentLink).toHaveAttribute("class","blinkingText");
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
 
 });
 
 
-test('Child windows hadl', async ({browser})=>
-{
+test('Child windows hadl', async ({ browser }) => {
     const context = await browser.newContext();
     const page = await context.newPage();
     const userName = page.locator('#username');
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");    
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     const documentLink = page.locator("[href*='documents-request']");
     const [newPage] = await Promise.all(
-    [
-    context.waitForEvent('page'), // listen for any new page  // pending,rejected,fulfilled
-    documentLink.click(), // new page is opened
-    ])
- 
+        [
+            context.waitForEvent('page'), // listen for any new page  // pending,rejected,fulfilled
+            documentLink.click(), // new page is opened
+        ])
+
     const text = await newPage.locator(".red").textContent();
     const arrayText = text.split("@")
     const domain = arrayText[1].split(" ")[0]
@@ -101,7 +98,7 @@ test('Child windows hadl', async ({browser})=>
     // textContenet will return text only when it's attached to the DOM 
     //After DOM open if you want to grab that value use below method
     console.log(await page.locator("#username").inputValue());
-    
+
 
 
 

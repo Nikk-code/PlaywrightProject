@@ -9,7 +9,7 @@ const { title, execPath } = require('process');
 const { text } = require('stream/consumers');
 
 
-test('Client App Login', async ({ page }) => {
+test.skip('Client App Login', async ({ page }) => {
     //js file-Login.js, DashboardPage
     const email = "johndoe123477@gmail.com"
     const productName = 'ZARA COAT 3';

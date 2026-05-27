@@ -7,7 +7,7 @@ test.describe.configure({ mode: 'parallel' });
 // When we give serial mode then if 2nd test fail then it will skip all other tests
 // test.describe.configure({ mode: 'serial' });
 
-test("Pop-up Validation", async ({ page }) => {
+test("@Web Pop-up Validation", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://www.google.com/");
     // await page.goBack();
@@ -47,7 +47,7 @@ test("Screensot & Visual comparision", async ({ page }) => {
 
 // Below test will fail because it's changing so if we use google it will not 
 // visuals will check pixels by pixels 
-test.only("visual", async ({ page }) => {
+test("visual", async ({ page }) => {
     await page.goto("https://www.flightaware.com/live/");
     expect(await page.screenshot()).toMatchSnapshot('landing.png');
 

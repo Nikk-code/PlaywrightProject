@@ -15,7 +15,7 @@ const { POManager } = require('../pageobjects/POManager');
 const dataset = JSON.parse(JSON.stringify(require("./utils/placeorderTestData.json")));
 
 for (const data of dataset) {
-    test(`Client App Login for ${data.productName}`, async ({ page }) => {
+    test(`@Web Client App Login for ${data.productName}`, async ({ page }) => {
         //js file-Login.js, DashboardPage
         const poManager = new POManager(page);
 
@@ -50,7 +50,7 @@ for (const data of dataset) {
 }
 
 // Different Way to drive the data (test data as fixture pass code)
-customtest.only(`Client App Login`, async ({ page, testDataForOrder }) => {
+customtest(`Client App Login`, async ({ page, testDataForOrder }) => {
     //js file-Login.js, DashboardPage
     const poManager = new POManager(page);
 
