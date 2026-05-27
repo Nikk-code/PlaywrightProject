@@ -29,6 +29,7 @@ const config = ({
     screenshot: 'on',
     trace: 'on'
 
+
   },
 
   /* Configure projects for major browsers */
@@ -53,6 +54,8 @@ const config = ({
         ignoreHttpsErrors: true,
         permissions: ['geolocation'],
         trace: 'on', //off,on
+        // video: 'retain-on-failure',
+        video: 'on'
         // viewport: { width: 720, height: 720 }
       }
     }
