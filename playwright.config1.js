@@ -15,6 +15,8 @@ import { trace } from 'console';
  */
 const config = ({
   testDir: './tests',
+  retries: 1,
+  /*Maximum time one test can run for */
   timeout: 30 * 1000, // This is for overall test timeout if it stucks somewhere will wait till this time  // By default it's 30 sec /* Run tests in files in parallel */
   expect: {
     timeout: 5000,   //it will wait till max 5 seconds 
