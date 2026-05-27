@@ -37,9 +37,10 @@ const config = ({
       name: 'safari',
       use: {
         browserName: 'webkit',
-        headless: true,
+        headless: false,
         screenshot: 'off',
         trace: 'on', //off,on
+        ...devices['iphone 11'],
       }
     },
 
@@ -49,7 +50,10 @@ const config = ({
         browserName: 'chromium',
         headless: false,
         screenshot: 'on',
+        ignoreHttpsErrors: true,
+        permissions: ['geolocation'],
         trace: 'on', //off,on
+        // viewport: { width: 720, height: 720 }
       }
     }
   ],
