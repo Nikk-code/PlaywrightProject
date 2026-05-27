@@ -1,5 +1,12 @@
 const { test, expect } = require('@playwright/test')
 
+// 3 test runnig in 3 workers here
+// Here test will run in parallel mode by using below code
+test.describe.configure({ mode: 'parallel' });
+
+// When we give serial mode then if 2nd test fail then it will skip all other tests
+// test.describe.configure({ mode: 'serial' });
+
 test("Pop-up Validation", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     // await page.goto("https://www.google.com/");

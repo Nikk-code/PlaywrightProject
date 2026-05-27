@@ -16,6 +16,8 @@ import { trace } from 'console';
 const config = ({
   testDir: './tests',
   retries: 1,
+  workers: 3,  // It will run 3 test files paralally
+  // This will run test in serial and parallel mode
   /*Maximum time one test can run for */
   timeout: 30 * 1000, // This is for overall test timeout if it stucks somewhere will wait till this time  // By default it's 30 sec /* Run tests in files in parallel */
   expect: {
