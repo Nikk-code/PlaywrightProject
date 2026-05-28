@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5734","@Web Client App Login for ADIDAS ORIGINAL","chromium","2026-05-28","passed","2026-05-28","","ClientAppPO.spec.js","",""
+"","11803","@Web Client App Login for ZARA COAT 3","chromium","2026-05-28","passed","2026-05-28","","ClientAppPO.spec.js","",""
+"","4635","@Web UI Controls","chromium","2026-05-28","passed","2026-05-28","","UIBasicstest.spec.js","",""
+"","12856","@Web Browser Context Playwrite test","chromium","2026-05-28","passed","2026-05-28","","UIBasicstest.spec.js","",""
+"","10869","@Web Pop-up Validation","chromium","2026-05-28","passed","2026-05-28","","MoreValidation.spec.js","",""

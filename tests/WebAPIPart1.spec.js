@@ -5,7 +5,7 @@
 // John@1234
 
 const { test, expect, request } = require('@playwright/test');
-const { APIUtils } = require('./Utils/APIUtils.js');
+const { APIUtils } = require('../Utils/APIUtils.js');
 
 const loginPayload = { userEmail: "johndoe123477@gmail.com", userPassword: "John@1234" }
 const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] }
@@ -41,7 +41,7 @@ test('@API Place the order', async ({ page }) => {
         }
     }
     const orderIdDetails = await page.locator(".col-text").textContent();
-    await page.pause()
+    // await page.pause()
     expect(response.orderID.includes(orderIdDetails)).toBeTruthy();
 
 });

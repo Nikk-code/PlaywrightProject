@@ -5,14 +5,14 @@
 // John@1234
 
 const { test, expect } = require('@playwright/test');
-const { customtest } = require('./utils/test-base.js');
+const { customtest } = require('../Utils/test-base.js');
 
 const { title, execPath } = require('process');
 const { text } = require('stream/consumers');
 
 const { POManager } = require('../pageobjects/POManager');
 //Json->string-> js object
-const dataset = JSON.parse(JSON.stringify(require("./utils/placeorderTestData.json")));
+const dataset = JSON.parse(JSON.stringify(require("../Utils/placeorderTestData.json")));
 
 for (const data of dataset) {
     test(`@Web Client App Login for ${data.productName}`, async ({ page }) => {
