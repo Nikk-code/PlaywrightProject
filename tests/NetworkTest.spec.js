@@ -11,7 +11,6 @@ const { APIUtils } = require('../Utils/APIUtils.js');
 const loginPayload = { userEmail: "johndoe123477@gmail.com", userPassword: "John@1234" }
 const orderPayload = { orders: [{ country: "Cuba", productOrderedId: "6960eac0c941646b7a8b3e68" }] }
 const fakePayLoadOrders = { data: [], message: "No Orders" };
-
 let response;
 
 
@@ -31,20 +30,23 @@ test('Place the order', async ({ page }) => {
     }, response.token)
 
     await page.goto("https://rahulshettyacademy.com/client");
-    await page.route("https://rahulshettyacademy.com/api/ecom/user/get-cart-count/69d6292bf86ba51a655217ff", route => {
-        const response = page.request.fetch(route.request());
-        let body = fakePayLoadOrders;
-        route.fulfill(
+    await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/*", async route => {
+        const response = await page.request.fetch(route.request());
+        let body = JSON.stringify(fakePayLoadOrders);
+        await route.fulfill(
             {
                 response,
                 body,
             }
         )
         //Intercepting response - API response->{playwright fakeresponse}->browser->render data on front end
-    })
+    });
+    // await page.locator("tbody").waitFor();
+    // const rows = await page.locator("tbody tr");
     await page.locator("button[routerlink*='myorders']").click();
-    await page.locator("tbody").waitFor();
-    const rows = await page.locator("tbody tr");
+    await page.pause();
+
+    console.log(await page.locator(".mt-4").textContent());
 
 
 
