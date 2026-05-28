@@ -3,6 +3,7 @@
 // doe
 // 4423490010
 // John@1234
+// Section 12 session 67 in udemy
 
 const { test, expect, request } = require('@playwright/test');
 const { APIUtils } = require('../Utils/APIUtils.js');
@@ -30,7 +31,7 @@ test('Place the order', async ({ page }) => {
     }, response.token)
 
     await page.goto("https://rahulshettyacademy.com/client");
-    await page.route("https://rahulshettyacademy.com/api/ecom/order/get-orders-for-customer/69d6292bf86ba51a655217ff", route => {
+    await page.route("https://rahulshettyacademy.com/api/ecom/user/get-cart-count/69d6292bf86ba51a655217ff", route => {
         const response = page.request.fetch(route.request());
         let body = fakePayLoadOrders;
         route.fulfill(
@@ -48,3 +49,5 @@ test('Place the order', async ({ page }) => {
 
 
 });
+
+// If it's failing check website network tab and get the request URL
