@@ -7,8 +7,7 @@
     "webTests": "npx playwright test --grep @Web",
     "APITests": "npx playwright test --grep @API",
     "SafariNewests": "npx playwright test --config playwright.config1.js --project=safari"
-
-    },
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,6 +18,7 @@
     "allure-playwright": "^3.9.0"
   },
   "dependencies": {
+    "@cucumber/cucumber": "^10.9.0",
     "exceljs": "^3.4.0"
   }
 }

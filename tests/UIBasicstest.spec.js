@@ -31,9 +31,9 @@ test('@Web Browser Context Playwrite test', async ({ browser }) => {
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
     console.log(await page.title());
     //css
-    await page.locator("#username").fill("rahulshetty");
+    await userName.fill("rahulshetty");
     await page.locator("[type='password']").fill("Learning@830$3mK2");
-    await page.locator("#signInBtn").click();
+    await signIn.click();
     console.log(await page.locator("[style*='block']").textContent());
     await expect(page.locator("[style*='block']")).toContainText('Incorrect');
     // type - fill
