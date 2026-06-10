@@ -19,11 +19,14 @@ jobs:
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Run Playwright tests
+      - name: Verify Playwright URL
+        env:
+          PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
         run: |
           echo "PLAYWRIGHT_SERVICE_URL=$PLAYWRIGHT_SERVICE_URL"
+      - name: Run Playwright tests
         env:
-          PLAYWRIGHT_SERVICE_URL: ${{vars.PLAYWRIGHT_SERVICE_URL}}
+          PLAYWRIGHT_SERVICE_URL: ${{ vars.PLAYWRIGHT_SERVICE_URL }}
         run: npx playwright test --config=playwright.service.config.js --workers=4
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
