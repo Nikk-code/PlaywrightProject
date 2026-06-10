@@ -27,7 +27,7 @@ test.skip('Client App Login', async ({ page }) => {
     for (let i = 0; i < count; ++i) {
 
         if (await products.nth(i).locator("b").textContent() === productName) {
-            // add to cart
+            // add to cart click button
             await products.nth(i).locator("text= Add To Cart").click();
             break;
         }
