@@ -9,6 +9,8 @@ module.exports = defineConfig(
   createAzurePlaywrightConfig(config, {
     exposeNetwork: '<loopback>',
     connectTimeout: 3 * 60 * 1000, // 3 minutes
+    retries: 2, // Add retries for CI environment
+    timeout: 30000, // Increase from default 30s
     os: ServiceOS.LINUX,
     credential: new DefaultAzureCredential(),
   }),
