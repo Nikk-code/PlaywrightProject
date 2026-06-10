@@ -15,6 +15,7 @@ import { trace } from 'console';
  */
 const config = ({
   testDir: './tests',
+  testMatch: '**/*.spec.js',
   retries: 2,
   timeout: 30 * 1000, // This is for overall test timeout if it stucks somewhere will wait till this time  // By default it's 30 sec /* Run tests in files in parallel */
   expect: {
