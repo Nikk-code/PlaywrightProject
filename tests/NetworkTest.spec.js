@@ -44,11 +44,11 @@ test('Place the order', async ({ page }) => {
     // await page.locator("tbody").waitFor();
     // const rows = await page.locator("tbody tr");
     await page.locator("button[routerlink*='myorders']").click();
-    await page.pause();
-
+    // await page.pause();
+    await page.waitForLoadState('networkidle');
     console.log(await page.locator(".mt-4").textContent());
 
-
+    await page.unrouteAll({ behavior: 'ignoreErrors' });
 
 });
 
