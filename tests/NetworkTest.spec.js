@@ -39,7 +39,7 @@ test('Place the order', async ({ page }) => {
                 body,
             }
         )
-        //Intercepting response - API response->{playwright fakeresponse}->browser->render data on front end
+        //Intercepting response - API response->{playwright fakeresponse}->browser->render data on front end 
     });
     // await page.locator("tbody").waitFor();
     // const rows = await page.locator("tbody tr");
